@@ -1,0 +1,18 @@
+#!/bin/bash
+# shellcheck disable=SC2016 # processed by envsubst
+# shellcheck disable=SC2034 # sourced by firstboot
+# Required
+PRESET_NET_CHANGE_DEFAULTS=1
+PRESET_NET_WIFI_ENABLED=1
+PRESET_NET_WIFI_SSID='${WIFI_SSID_0}'
+PRESET_NET_WIFI_KEY='${WIFI_PSK_0}'
+PRESET_NET_WIFI_COUNTRYCODE='US' # https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
+PRESET_CONNECT_WIRELESS=n # Yes, this is correct
+# Optional
+SET_LANG_BASED_ON_LOCATION=y
+PRESET_LOCALE=en_US.UTF-8 # https://simplelocalize.io/data/locales/
+PRESET_TIMEZONE=America/New_York # Type `timedatectl list-timezones` in a linux terminal
+PRESET_ROOT_PASSWORD='${ROOT_PASSWORD}' # Armbian default is 1234
+PRESET_USER_NAME='${USERNAME}' # Adds a new user to the `sudo` group
+PRESET_USER_PASSWORD='${PASSWORD}'
+PRESET_DEFAULT_REALNAME='${REALNAME}'
