@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+: "${SRC:=$(echo ~/Downloads/Armbian_*_Uefi-x86*.img.xz | tail -n1)}"
+: "${DST:=${0##*/}.img}"
+: "${NAME:=${DST%.img*}}"
+
+xzcat "$SRC" > "$DST"
+fallocate -l 32G "$DST"
+parted --script --fix "$DST" resizepart 3 100%
+LOOP=$(sudo losetup -f --show "$DST")
+sudo kpartx -a "$LOOP"
+P3="/dev/mapper/${LOOP##*/}p3"
+sudo resize2fs "$P3"
+mkdir -p ~/mnt/"$NAME"
+sudo mount "$P3" ~/mnt/"$NAME"
+# shellcheck disable=SC2024
+sudo tee ~/mnt/"$NAME"/root/.not_logged_in_yet <secrets/jkt-rv-ha/root/.not_logged_in_yet >/dev/null
+sudo umount -R ~/mnt/"$NAME"
+sudo kpartx -d "$LOOP"
+sudo losetup -d "$LOOP"
