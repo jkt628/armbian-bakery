@@ -9,6 +9,7 @@ configure [base Armbian image](https://armbian.com/download) [Autoconfig] for th
 * root password
 * user account with password
 * WiFi enabled for one SSID
+* minimum to run [ansible-bakery](https://github.com/jkt628/ansible-bakery)
 
 ## Set up
 
@@ -33,5 +34,13 @@ ${VISUAL:vi} secrets/$TARGET/.not_logged_in_yet
 
 * umount the media
 * transfer the media to `$TARGET` and boot
+
+## radxa-zero3
+
+### [Autoconfig]
+
+with `Armbian_24.11.1_Radxa-zero3_bookworm_vendor_6.1.75-homeassistant_minimal` the radxa-zero3 will not complete [Autoconfig] via
+[armbian-firstlogin](https://github.com/armbian/build/blob/main/packages/bsp/common/usr/lib/armbian/armbian-firstlogin).  one way to complete this step is to `ssh root@radxa-zero3`
+using, interestingly, the `PRESET_ROOT_PASSWORD` from [.not_logged_in_yet](./.not_logged_in_yet).
 
 [Autoconfig]: (https://docs.armbian.com/User-Guide_Autoconfig/)
